@@ -3,6 +3,7 @@ package com.anusha.uberclone.navigation
 
 import Home
 import Login
+import Mainpage
 import Registration
 import Splash
 import androidx.compose.runtime.Composable
@@ -28,7 +29,7 @@ fun NavScreen() {
 
         }
         composable(route = NavScreen.HomeScreenn.route){
-            Home()
+            Mainpage()
         }
 
 

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 fun Setting() {
     
     Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "hai this is dsetting page")
+        Text(text = "hai this is setting page")
     }
     
 }

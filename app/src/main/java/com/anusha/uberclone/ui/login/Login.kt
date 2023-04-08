@@ -1,18 +1,15 @@
+package com.anusha.uberclone.ui.login
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 
 @Composable
-fun Login(navController: NavController) {
+fun Login(loginClicked: () -> Unit) {
     Column() {
-        Button(onClick = { navController.navigate("home_screen") }) {
+        Button(onClick = loginClicked) {
             Text(text = "Click for login")
-
         }
-
     }
-
 }

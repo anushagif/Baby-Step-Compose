@@ -8,9 +8,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun Setting() {
-    
     Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "hai this is setting page")
     }
-    
 }

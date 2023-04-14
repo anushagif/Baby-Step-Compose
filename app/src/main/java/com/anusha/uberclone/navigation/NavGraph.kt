@@ -1,6 +1,7 @@
 package com.anusha.uberclone.navigation
 
 import Setting
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -35,6 +36,7 @@ fun NavScreen() {
     }, topBar = {
         TopBar(navController = navController) {
             scope.launch {
+                Log.d("Corotine scope","it is working")
                 scaffoldState.drawerState.open()
             }
 
@@ -65,6 +67,7 @@ fun NavScreen() {
             composable(route = NavScreen.AboutScreen.route ){
                 About()
             }
+
 
         }
     }
@@ -98,13 +101,13 @@ fun BottomBar(navController: NavHostController) {
 fun TopBar(navController: NavHostController, onNavigationIconClick: () -> Unit){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-
+Log.d("Reached", "scfold top reached")
     if (navBackStackEntry?.destination?.route in BottomBarItems.values().map { it.route }) {
-
+        Log.d("Reached inside", "scfold top reached")
         TopAppBar(title = {
             Text(text = "Ride For Food")
         }, navigationIcon = {
-            IconButton(onClick = onNavigationIconClick ){
+            IconButton(onClick = { onNavigationIconClick() }){
 
                 Icon(imageVector = Icons.Default.Menu, contentDescription = "toggle")
 

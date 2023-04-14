@@ -8,4 +8,5 @@ sealed class NavScreen(val route: String) {
   object HomeScreen : NavScreen("home_screen")
   object SettingScreen : NavScreen("setting_screen")
   object AboutScreen : NavScreen("about_screen")
+
 }

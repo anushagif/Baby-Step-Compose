@@ -1,17 +1,14 @@
 package com.anusha.uberclone.navigation
 
 import Setting
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -19,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.anusha.uberclone.ui.about.About
 import com.anusha.uberclone.ui.components.DrawerContent
 import com.anusha.uberclone.ui.components.Splash
 import com.anusha.uberclone.ui.home.HomeScreen
@@ -29,14 +27,21 @@ import kotlinx.coroutines.launch
 @Composable
 fun NavScreen() {
     val navController = rememberNavController()
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
     Scaffold(
         bottomBar = {
         BottomBar(navController = navController)
     }, topBar = {
-        TopBar(navController = navController)
-        
-    },
-    drawerContent = DrawerContent()) { paddingValues ->
+        TopBar(navController = navController) {
+            scope.launch {
+                scaffoldState.drawerState.open()
+            }
+
+        }
+
+        },
+    drawerContent = { DrawerContent(navController = navController) }) { paddingValues ->
         NavHost(
             navController = navController,
             modifier = Modifier.padding(paddingValues),
@@ -57,7 +62,10 @@ fun NavScreen() {
             composable(route = NavScreen.SettingScreen.route) {
                 Setting()
             }
-            
+            composable(route = NavScreen.AboutScreen.route ){
+                About()
+            }
+
         }
     }
 }
@@ -87,16 +95,8 @@ fun BottomBar(navController: NavHostController) {
 }
 
 @Composable
-fun TopBar(navController: NavHostController){
+fun TopBar(navController: NavHostController, onNavigationIconClick: () -> Unit){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentdestination = navBackStackEntry?.destination
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
-    val navigationIconClick = LaunchedEffect(Unit) {
-        scope.launch {
-            scaffoldState.drawerState.open()
-        }
-    }
 
 
     if (navBackStackEntry?.destination?.route in BottomBarItems.values().map { it.route }) {
@@ -104,7 +104,7 @@ fun TopBar(navController: NavHostController){
         TopAppBar(title = {
             Text(text = "Ride For Food")
         }, navigationIcon = {
-            IconButton(onClick = { navigationIconClick }){
+            IconButton(onClick = onNavigationIconClick ){
 
                 Icon(imageVector = Icons.Default.Menu, contentDescription = "toggle")
 

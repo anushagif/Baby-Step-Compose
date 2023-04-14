@@ -7,4 +7,5 @@ sealed class NavScreen(val route: String) {
   object LoginScreen : NavScreen("login_screen")
   object HomeScreen : NavScreen("home_screen")
   object SettingScreen : NavScreen("setting_screen")
+  object AboutScreen : NavScreen("about_screen")
 }
